@@ -10,10 +10,11 @@ require('dotenv').config()
         const content = await Notion.getDatabaseInformation()
 
         const userEmail = process.env.GITHUB_TOKEN
-        const userName = process.env.GITHUB_TOKEN
-        const token = process.env.GITHUB_TOKEN
+        const userName = process.env.GITHUB_NAME
+        const token = process.env.GITHUB_EMAIL
+        const repoUrl = process.env.GITHUB_REPOSITORY_URL
         
-        const Gitupdate = new GitUpdate(content, token, userName, userEmail)
+        const Gitupdate = new GitUpdate(content, token, userName, userEmail, repoUrl)
         Gitupdate.checkAndRemoveDirectory()
             .then(() => Gitupdate.delay(2000))
             .then(() => {

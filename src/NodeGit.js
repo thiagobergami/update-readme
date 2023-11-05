@@ -111,11 +111,10 @@ class GitUpdate {
 
             const remoteName = 'origin'; 
             const refSpecs = [`refs/heads/main:refs/heads/main`];
-            const token = this.token
 
             const credentials = {
                 certificateCheck: () => 1, // Accept the SSL certificate
-                credentials: () => NodeGit.Cred.userpassPlaintextNew(token, ''),
+                credentials: () => NodeGit.Cred.userpassPlaintextNew(this.token, ''),
             };
 
             const remote = await repository.getRemote(remoteName);
