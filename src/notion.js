@@ -22,12 +22,10 @@ class NotionApi {
 
             const obj = {
                 'name': name,
-                'url': url,
-                'type': type,
+                'url': url
             };
             map.get(type).push(obj)
         }
-
         return map
     }
 }
