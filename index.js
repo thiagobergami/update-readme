@@ -8,10 +8,10 @@ require('dotenv').config()
     ; (async () => {
         const Notion = new NotionApi(process.env.NOTION_PAGE_ID, process.env.NOTION_TOKEN, Client)
         const content = await Notion.getDatabaseInformation()
-
-        const userEmail = process.env.GITHUB_TOKEN
+        
+        const userEmail = process.env.GITHUB_EMAIL
         const userName = process.env.GITHUB_NAME
-        const token = process.env.GITHUB_EMAIL
+        const token = process.env.GITHUB_TOKEN
         const repoUrl = process.env.GITHUB_REPOSITORY_URL
         
         const Gitupdate = new GitUpdate(content, token, userName, userEmail, repoUrl)

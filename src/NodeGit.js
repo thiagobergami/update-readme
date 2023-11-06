@@ -52,7 +52,7 @@ class GitUpdate {
     processReadmeData(readmeData) {
         const nowSectionRegex = /💬 Now:(.*?)💭 Later:/s;
         const laterSectionRegex = /💭 Later:(.*?)💤 Previously:/s;
-        const previouslySectionRegex = /💤 Previously:(.*?)## My Skills/s;
+        const previouslySectionRegex = /💤 Previously(.*?)## My Skills/s;
 
         const nowNames = this.readmeContent.get('Now')
             .map(item => `- [${item.name}](${item.url || '#'})`)
@@ -71,7 +71,7 @@ class GitUpdate {
             .join('\n');
 
         const previouslySection = `\n${previouslyNames}`;
-
+        
         readmeData = readmeData.replace(nowSectionRegex, `💬 Now:\n${nowSection}\n\n💭 Later:`)
         readmeData = readmeData.replace(laterSectionRegex, `💭 Later:\n${laterSection}\n\n💤 Previously`)
         readmeData = readmeData.replace(previouslySectionRegex, `💤 Previously\n${previouslySection}\n\n## My Skills`)
@@ -98,11 +98,12 @@ class GitUpdate {
             await index.addAll();
             await index.write();
             const oid = await index.writeTree();
-            const today = new Date(Date.now())
+            const now = Date.now()
+            const today = new Date(now)
 
             const head = await NodeGit.Reference.nameToId(repository, 'HEAD');
             const parent = await repository.getCommit(head);
-            const author = NodeGit.Signature.create(this.userName, this.userEmail, Date.now(), 0);
+            const author = NodeGit.Signature.create(this.userName, this.userEmail, now, 0);
             const committer = author;
             const commitMessage = `automatic update ${today.toDateString()}`;
             const commitId = await repository.createCommit('HEAD', author, committer, commitMessage, oid, [parent]);

@@ -24,6 +24,7 @@ class NotionApi {
                 'name': name,
                 'url': url
             };
+            
             map.get(type).push(obj)
         }
         return map
