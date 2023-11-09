@@ -103,7 +103,7 @@ class GitUpdate {
 
             const head = await NodeGit.Reference.nameToId(repository, 'HEAD');
             const parent = await repository.getCommit(head);
-            const author = NodeGit.Signature.create(this.userName, this.userEmail, now, 0);
+            const author = NodeGit.Signature.now(this.userName, this.userEmail);
             const committer = author;
             const commitMessage = `automatic update ${today.toDateString()}`;
             const commitId = await repository.createCommit('HEAD', author, committer, commitMessage, oid, [parent]);
